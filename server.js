@@ -2,7 +2,7 @@
 const express = require("express");
 // allows us to connect to mongoDB
 const mongoose = require("mongoose");
-// allows us to parse requests
+// allows us to parse requests as json
 const bodyParser = require("body-parser");
 // used for authentication
 const passport = require("passport");
@@ -15,7 +15,7 @@ const posts = require("./routes/api/posts");
 //variable to hold new express app
 const app = express();
 
-// body parser middleware
+// body parser middleware for parsing requests as json
 // tells the system whether you want to use a simple algorithm for shallow parsing (i.e. false) or complex algorithm for deep parsing that can deal with nested objects (i.e. true
 app.use(bodyParser.urlencoded({ extended: false }));
 // lets the 'manager' know we want json to be used
@@ -33,7 +33,7 @@ mongoose
   .then(() => console.log("MongoDB Connected..."))
   .catch(err => console.log(err));
 
-//passport middleware
+//passport middleware - used for authentication
 app.use(passport.initialize());
 // app.use(passport.session());
 
