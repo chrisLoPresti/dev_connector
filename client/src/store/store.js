@@ -11,10 +11,11 @@ const composeEnhancers =
       })
     : compose;
 
+let initialState = {};
 const enhancer = composeEnhancers(
   applyMiddleware(...middleware)
   // other store enhancers if any
 );
-const store = createStore(rootReducer, {}, enhancer);
+const store = createStore(rootReducer, initialState, enhancer);
 
 export default store;

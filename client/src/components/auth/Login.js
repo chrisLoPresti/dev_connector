@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { loginUser, logoutUser } from "../../actions/authActions";
+import TextFieldGroup from "../common/TextFieldGroup";
 
 class Login extends Component {
   constructor(props) {
@@ -8,9 +10,28 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      registered: props.auth.registered,
       errors: {}
     };
+  }
+
+  componentDidMount() {
+    if (
+      this.props.auth.isAuthenticated === true &&
+      this.props.errors !== "Unauthorized"
+    ) {
+      this.props.history.push("/dashboard");
+    } else {
+      this.props.logoutUser();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated === true) {
+      this.props.history.push("/dashboard");
+    }
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
   }
   //using an arrow function allows us to maintain the state, so we dont need to bind the function in the constructor or when its called
   onHandleChange = event => {
@@ -22,15 +43,15 @@ class Login extends Component {
   onSubmit = event => {
     event.preventDefault();
     const { email, password } = this.state;
-    const user = {
+    const userData = {
       email,
       password
     };
-    console.log(user);
+    this.props.loginUser(userData);
   };
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, errors } = this.state;
     return (
       <div className="login">
         <div className="container">
@@ -41,26 +62,22 @@ class Login extends Component {
                 Sign in to your DevConnector account
               </p>
               <form onSubmit={this.onSubmit}>
-                <div className="form-group">
-                  <input
-                    type="email"
-                    className="form-control form-control-lg"
-                    placeholder="Email Address"
-                    name="email"
-                    value={email}
-                    onChange={this.onHandleChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="password"
-                    className="form-control form-control-lg"
-                    placeholder="Password"
-                    name="password"
-                    value={password}
-                    onChange={this.onHandleChange}
-                  />
-                </div>
+                <TextFieldGroup
+                  error={errors.email}
+                  type="email"
+                  placeholder="Email Address"
+                  name="email"
+                  value={email}
+                  onChange={this.onHandleChange}
+                />
+                <TextFieldGroup
+                  error={errors.password}
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  value={password}
+                  onChange={this.onHandleChange}
+                />
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
             </div>
@@ -72,11 +89,18 @@ class Login extends Component {
 }
 
 Login.proptypes = {
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
+  loginUser: PropTypes.func.isRequired,
+  logoutUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  errors: state.errors
 });
 
-export default connect(mapStateToProps)(Login);
+export default connect(
+  mapStateToProps,
+  { loginUser, logoutUser }
+)(Login);

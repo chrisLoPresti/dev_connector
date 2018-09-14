@@ -1,10 +1,13 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.schema;
+//accessing schema from mongoose
+const Schema = mongoose.Schema;
 
 //create schema
 const PostSchema = new Schema({
   user: {
-    type: Schema.types.ObjectId,
+    //associate the user by their id
+    type: Schema.Types.ObjectId,
+    //referencing the users collection
     ref: "users"
   },
   text: {
@@ -17,36 +20,48 @@ const PostSchema = new Schema({
   avatar: {
     type: String
   },
-  likes: [
-    {
-      user: {
-        type: Schema.types.ObjectId,
-        ref: "users"
+  likes: {
+    ammount: {
+      type: Number,
+      default: 0
+    },
+    likes: [
+      {
+        user: {
+          type: Schema.Types.ObjectId,
+          ref: "users"
+        }
       }
-    }
-  ],
-  comments: [
-    {
-      user: {
-        type: Schema.types.ObjectId,
-        ref: "users"
-      },
-      text: {
-        type: String,
-        required: true
-      },
-      name: {
-        type: String
-      },
-      avatar: {
-        type: String
-      },
-      date: {
-        type: Date,
-        default: Date.now
+    ]
+  },
+  comments: {
+    ammount: {
+      type: Number,
+      default: 0
+    },
+    comments: [
+      {
+        user: {
+          type: Schema.Types.ObjectId,
+          ref: "users"
+        },
+        text: {
+          type: String,
+          required: true
+        },
+        name: {
+          type: String
+        },
+        avatar: {
+          type: String
+        },
+        date: {
+          type: Date,
+          default: Date.now
+        }
       }
-    }
-  ],
+    ]
+  },
   date: {
     type: Date,
     default: Date.now
@@ -55,4 +70,4 @@ const PostSchema = new Schema({
 
 //export this model with the variable name User using the above schema
 // module.exports = <Variable Name> = mongoose.model("<Collection Name>", <above schema>);
-module.exports = Post = mongoose.model("post", PostSchema);
+module.exports = Posts = mongoose.model("posts", PostSchema);

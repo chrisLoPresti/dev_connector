@@ -37,3 +37,11 @@ img {
 .form-control::placeholder {
   color: #bbb !important;
 }
+
+.modal-container {
+  position: relative;
+}
+.modal-container .modal,
+.modal-container .modal-backdrop {
+  position: absolute;
+}

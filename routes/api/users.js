@@ -42,7 +42,7 @@ router.post("/register", (req, res) => {
         const avatar = gravatar.url(req.body.email, {
           s: "200", // size
           r: "pg", // rating
-          d: "404" // default 404 will return a default image part of gravatar
+          d: "mm" // default 404 will return a default image part of gravatar
         });
         // create new user instance
         const newUser = new User({
