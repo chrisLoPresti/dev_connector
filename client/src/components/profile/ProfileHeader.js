@@ -30,7 +30,7 @@ class ProfileHeader extends Component {
                 {isEmpty(profile.website) ? null : (
                   <a
                     className="text-white p-2"
-                    href={`http://${profile.website}`}
+                    href={`${profile.website}`}
                     target="_blank"
                   >
                     <i className="fas fa-globe fa-2x" />
@@ -39,7 +39,7 @@ class ProfileHeader extends Component {
                 {isEmpty(profile.social && profile.social.twitter) ? null : (
                   <a
                     className="text-white p-2"
-                    href={`http://${profile.social.twitter}`}
+                    href={`${profile.social.twitter}`}
                     target="_blank"
                   >
                     <i className="fas fa-twitter fa-2x" />
@@ -48,7 +48,7 @@ class ProfileHeader extends Component {
                 {isEmpty(profile.social && profile.social.facebook) ? null : (
                   <a
                     className="text-white p-2"
-                    href={`http://${profile.social.facebook}`}
+                    href={`${profile.social.facebook}`}
                     target="_blank"
                   >
                     <i className="fas fa-facebook fa-2x" />
@@ -57,7 +57,7 @@ class ProfileHeader extends Component {
                 {isEmpty(profile.social && profile.social.linkedin) ? null : (
                   <a
                     className="text-white p-2"
-                    href={`http://${profile.social.linkedin}`}
+                    href={`${profile.social.linkedin}`}
                     target="_blank"
                   >
                     <i className="fas fa-linkedin fa-2x" />
@@ -66,7 +66,7 @@ class ProfileHeader extends Component {
                 {isEmpty(profile.social && profile.social.instagram) ? null : (
                   <a
                     className="text-white p-2"
-                    href={`http://${profile.social.instagram}`}
+                    href={`${profile.social.instagram}`}
                     target="_blank"
                   >
                     <i className="fas fa-instagram fa-2x" />
@@ -75,7 +75,7 @@ class ProfileHeader extends Component {
                 {isEmpty(profile.social && profile.social.youtube) ? null : (
                   <a
                     className="text-white p-2"
-                    href={`http://${profile.social.youtube}`}
+                    href={`${profile.social.youtube}`}
                     target="_blank"
                   >
                     <i className="fas fa-youtube fa-2x" />

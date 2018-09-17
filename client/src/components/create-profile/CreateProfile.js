@@ -52,13 +52,13 @@ class CreateProfile extends Component {
     }));
   };
 
-  // addhttp = url => {
-  //   const regEx = /^(f|ht)tps?:\/\//;
-  //   if (!regEx.test(url)) {
-  //     url = "http://" + url;
-  //   }
-  //   return url;
-  // };
+  addhttp = url => {
+    const regEx = /^(f|ht)tps?:\/\//;
+    if (!regEx.test(url)) {
+      url = "http://" + url;
+    }
+    return url;
+  };
 
   handleSubmit = event => {
     event.preventDefault();
@@ -79,23 +79,31 @@ class CreateProfile extends Component {
       instagram
     } = this.state;
 
+    const newwebsite = this.addhttp(website);
+    const newfacebook = this.addhttp(facebook);
+    const newtwitter = this.addhttp(twitter);
+    const newyoutube = this.addhttp(youtube);
+    const newinstagram = this.addhttp(instagram);
+    const newlinkedin = this.addhttp(linkedin);
+
     const newProfile = {
       displaySocialInputs,
       handle,
       company,
-      website: website,
+      website: newwebsite,
       location,
       status,
       skills,
       githubusername,
       bio,
-      facebook,
-      twitter,
-      linkedin,
-      youtube,
-      instagram
+      facebook: newfacebook,
+      twitter: newtwitter,
+      linkedin: newlinkedin,
+      youtube: newyoutube,
+      instagram: newinstagram
     };
     this.props.createProfile(newProfile, this.props.history);
+    localStorage.removeItem("profileForm");
   };
 
   onClearForm = () => {
@@ -230,7 +238,7 @@ class CreateProfile extends Component {
                 />
                 <TextFieldGroup
                   error={errors.website}
-                  type="url"
+                  type="text"
                   placeholder="Website"
                   name="website"
                   value={website}
