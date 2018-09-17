@@ -15,10 +15,7 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    if (
-      this.props.auth.isAuthenticated === true &&
-      this.props.errors !== "Unauthorized"
-    ) {
+    if (this.props.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
     } else {
       this.props.logoutUser();

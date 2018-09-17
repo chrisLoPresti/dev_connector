@@ -8,7 +8,7 @@ const PrivateRoute = ({ component: Component, auth, errors, ...rest }) => (
   <Route
     {...rest}
     render={props => {
-      if (auth.isAuthenticated && errors !== "Unauthorized") {
+      if (auth.isAuthenticated) {
         return (
           <div>
             <Component {...props} />

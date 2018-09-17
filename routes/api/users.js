@@ -20,6 +20,15 @@ const User = require("../../models/User");
 // @access Public
 router.get("/test", (req, res) => res.json({ msg: "Users Works" }));
 
+// @route  GET api/users/validate
+// @desc   Tests users validation status
+// @access Private
+router.get(
+  "/validate", // authenticate using jwt
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => res.json({ msg: "success" })
+);
+
 // @route  GET api/users/register
 // @desc   Register a user
 // @access Public

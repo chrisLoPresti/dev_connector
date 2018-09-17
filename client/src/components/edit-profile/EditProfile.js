@@ -12,7 +12,7 @@ import isEmpty from "../../utils/isEmpty";
 class EditProfile extends Component {
   constructor(props) {
     super(props);
-    this.state = JSON.parse(localStorage.getItem("profileForm")) || {
+    this.state = {
       displaySocialInputs: false,
       handle: "",
       company: "",
@@ -61,8 +61,8 @@ class EditProfile extends Component {
       profile.linkedin = !isEmpty(profile.social.linkedin)
         ? profile.social.linkedin
         : "";
-      profile.yoututbe = !isEmpty(profile.social.yoututbe)
-        ? profile.social.yoututbe
+      profile.youtube = !isEmpty(profile.social.youtube)
+        ? profile.social.youtube
         : "";
       profile.instagram = !isEmpty(profile.social.instagram)
         ? profile.social.instagram
@@ -77,6 +77,7 @@ class EditProfile extends Component {
         skills: skillsCSV,
         githubusername: profile.githubusername,
         bio: profile.bio,
+        linkedin: profile.linkedin,
         twitter: profile.twitter,
         facebook: profile.facebook,
         instagram: profile.instagram,
@@ -84,15 +85,18 @@ class EditProfile extends Component {
       });
     }
   }
-
+  // addhttp = url => {
+  //   const regEx = /^(f|ht)tps?:\/\//;
+  //   if (!regEx.test(url)) {
+  //     url = "http://" + url;
+  //   }
+  //   return url;
+  // };
   //using an arrow function allows us to maintain the state, so we dont need to bind the function in the constructor or when its called
   onHandleChange = event => {
-    this.setState(
-      {
-        [event.target.name]: event.target.value
-      },
-      () => localStorage.setItem("profileForm", JSON.stringify(this.state))
-    );
+    this.setState({
+      [event.target.name]: event.target.value
+    });
   };
 
   handeToggleSocialMedia = () => {
@@ -102,6 +106,7 @@ class EditProfile extends Component {
   };
 
   handleSubmit = event => {
+    event.preventDefault();
     const {
       displaySocialInputs,
       handle,
@@ -118,24 +123,22 @@ class EditProfile extends Component {
       youtube,
       instagram
     } = this.state;
-
     const newProfile = {
       displaySocialInputs,
       handle,
       company,
-      website,
+      website: website,
       location,
       status,
       skills,
       githubusername,
       bio,
-      twitter,
-      facebook,
-      linkedin,
-      youtube,
-      instagram
+      facebook: facebook,
+      twitter: twitter,
+      linkedin: linkedin,
+      youtube: youtube,
+      instagram: instagram
     };
-    event.preventDefault();
     this.props.createProfile(newProfile, this.props.history);
   };
 

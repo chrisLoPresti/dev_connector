@@ -52,7 +52,16 @@ class CreateProfile extends Component {
     }));
   };
 
+  // addhttp = url => {
+  //   const regEx = /^(f|ht)tps?:\/\//;
+  //   if (!regEx.test(url)) {
+  //     url = "http://" + url;
+  //   }
+  //   return url;
+  // };
+
   handleSubmit = event => {
+    event.preventDefault();
     const {
       displaySocialInputs,
       handle,
@@ -74,19 +83,18 @@ class CreateProfile extends Component {
       displaySocialInputs,
       handle,
       company,
-      website,
+      website: website,
       location,
       status,
       skills,
       githubusername,
       bio,
-      twitter,
       facebook,
+      twitter,
       linkedin,
       youtube,
       instagram
     };
-    event.preventDefault();
     this.props.createProfile(newProfile, this.props.history);
   };
 
@@ -222,7 +230,7 @@ class CreateProfile extends Component {
                 />
                 <TextFieldGroup
                   error={errors.website}
-                  type="text"
+                  type="url"
                   placeholder="Website"
                   name="website"
                   value={website}
@@ -281,7 +289,7 @@ class CreateProfile extends Component {
                   <div>
                     <InputGroup
                       error={errors.twitter}
-                      type="text"
+                      type="url"
                       placeholder="Twitter Profile URL"
                       name="twitter"
                       value={twitter}
@@ -290,7 +298,7 @@ class CreateProfile extends Component {
                     />
                     <InputGroup
                       error={errors.facebook}
-                      type="text"
+                      type="url"
                       placeholder="Facebook Profile URL"
                       name="facebook"
                       value={facebook}
@@ -299,7 +307,7 @@ class CreateProfile extends Component {
                     />
                     <InputGroup
                       error={errors.linkedin}
-                      type="text"
+                      type="url"
                       placeholder="Linkedin Profile URL"
                       name="linkedin"
                       value={linkedin}
@@ -308,7 +316,7 @@ class CreateProfile extends Component {
                     />
                     <InputGroup
                       error={errors.youtube}
-                      type="text"
+                      type="url"
                       placeholder="YouTube Channel URL"
                       name="youtube"
                       value={youtube}
@@ -317,7 +325,7 @@ class CreateProfile extends Component {
                     />
                     <InputGroup
                       error={errors.instagram}
-                      type="text"
+                      type="url"
                       placeholder="Instagram Page URL"
                       name="instagram"
                       value={instagram}

@@ -130,7 +130,7 @@ router.post(
 // @route  DELETE api/posts/unlike/:id
 // @desc   Unlike a post
 // @access Private
-router.delete(
+router.post(
   "/unlike/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {

@@ -187,7 +187,7 @@ router.post(
         location: req.body.location,
         from: req.body.from,
         to: req.body.to,
-        current: req.body.currenty,
+        current: req.body.current,
         description: req.body.description
       };
       //add to experience array - unshift adds to the front, push adds to the end
@@ -218,7 +218,7 @@ router.post(
         fieldofstudy: req.body.fieldofstudy,
         from: req.body.from,
         to: req.body.to,
-        current: req.body.currenty,
+        current: req.body.current,
         description: req.body.description
       };
       //add to education array - unshift adds to the front, push adds to the end
@@ -297,7 +297,7 @@ router.post(
         location: req.body.location,
         from: req.body.from,
         to: req.body.to,
-        current: req.body.currenty,
+        current: req.body.current,
         description: req.body.description
       };
       //get remove index
@@ -336,7 +336,7 @@ router.post(
         fieldofstudy: req.body.fieldofstudy,
         from: req.body.from,
         to: req.body.to,
-        current: req.body.currenty,
+        current: req.body.current,
         description: req.body.description
       };
       //get remove index

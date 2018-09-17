@@ -19,6 +19,11 @@ module.exports = function validateExperienceInput(data) {
   if (Validator.isEmpty(data.from)) {
     errors.from = "From date is required";
   }
+  if (!Validator.isEmpty(data.from) && !Validator.isEmpty(data.to)) {
+    if (data.from > data.to) {
+      errors.from = "From date is greater than To date";
+    }
+  }
 
   return {
     errors,
