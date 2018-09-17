@@ -6,6 +6,8 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 // used for authentication
 const passport = require("passport");
+//path module part of node.js
+const path = require("path");
 
 //set up routes
 const users = require("./routes/api/users");
@@ -44,6 +46,16 @@ require("./config/passport")(passport);
 app.use("/api/users", users);
 app.use("/api/profile", profile);
 app.use("/api/posts", posts);
+
+//serve static asses it in production
+if (process.env.NODE_ENV === "production") {
+  // set static folder
+  app.use(express.static("client/build"));
+  //directs all routes to the index.html file
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 //use the env. server port or localhost:5000
 const port = process.env.PORT || 5000;
