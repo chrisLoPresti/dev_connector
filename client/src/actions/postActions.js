@@ -71,7 +71,7 @@ export const getPosts = () => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_POSTS,
-        payload: []
+        payload: null
       })
     );
 };
@@ -93,7 +93,7 @@ export const deletePost = id => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_POSTS,
-        payload: []
+        payload: null
       })
     );
 };

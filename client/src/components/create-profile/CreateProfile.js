@@ -79,12 +79,12 @@ class CreateProfile extends Component {
       instagram
     } = this.state;
 
-    const newwebsite = this.addhttp(website);
-    const newfacebook = this.addhttp(facebook);
-    const newtwitter = this.addhttp(twitter);
-    const newyoutube = this.addhttp(youtube);
-    const newinstagram = this.addhttp(instagram);
-    const newlinkedin = this.addhttp(linkedin);
+    const newwebsite = website !== "" ? this.addhttp(website) : "";
+    const newfacebook = facebook !== "" ? this.addhttp(facebook) : "";
+    const newtwitter = twitter !== "" ? this.addhttp(twitter) : "";
+    const newyoutube = youtube !== "" ? this.addhttp(youtube) : "";
+    const newinstagram = instagram !== "" ? this.addhttp(instagram) : "";
+    const newlinkedin = linkedin !== "" ? this.addhttp(linkedin) : "";
 
     const newProfile = {
       displaySocialInputs,
