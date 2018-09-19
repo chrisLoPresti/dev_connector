@@ -3,10 +3,12 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Spinner from "../common/Spinner";
 import ProfileItems from "./ProfileItems";
+import { validateUser } from "../../actions/authActions";
 import { getProfiles } from "../../actions/profileActions";
 
 class Profiles extends Component {
   componentDidMount() {
+    this.props.validateUser();
     this.props.getProfiles();
   }
   render() {
@@ -43,6 +45,7 @@ class Profiles extends Component {
 
 Profiles.propTypes = {
   getProfiles: PropTypes.func.isRequired,
+  validateUser: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired
 };
 
@@ -52,5 +55,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getProfiles }
+  { getProfiles, validateUser }
 )(Profiles);

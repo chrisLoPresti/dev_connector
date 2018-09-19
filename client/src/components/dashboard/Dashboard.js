@@ -7,9 +7,11 @@ import Spinner from "../common/Spinner";
 import ProfileActions from "./ProfileActions";
 import Experience from "./Experience";
 import Education from "./Education";
+import { validateUser } from "../../actions/authActions";
 
 class Dashboard extends Component {
   componentDidMount() {
+    this.props.validateUser();
     this.props.getCurrentProfile();
   }
 
@@ -73,17 +75,19 @@ class Dashboard extends Component {
 Dashboard.propTypes = {
   deleteAccount: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
+  validateUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   getCurrentProfile: PropTypes.func.isRequired,
+  validateUser: PropTypes.func.isRequired,
   auth: state.auth,
   profile: state.profile
 });
 
 export default connect(
   mapStateToProps,
-  { getCurrentProfile, deleteAccount }
+  { getCurrentProfile, deleteAccount, validateUser }
 )(Dashboard);

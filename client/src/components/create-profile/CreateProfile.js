@@ -7,6 +7,7 @@ import SelectListGroup from "../common/SelectListGroup";
 import TextAreaFieldGroup from "../common/TextAreaFieldGroup";
 import { createProfile } from "../../actions/profileActions";
 import PropTypes from "prop-types";
+import { validateUser } from "../../actions/authActions";
 
 class CreateProfile extends Component {
   constructor(props) {
@@ -28,6 +29,10 @@ class CreateProfile extends Component {
       instagram: "",
       errors: {}
     };
+  }
+
+  componentDidMount() {
+    this.props.validateUser();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -355,7 +360,8 @@ class CreateProfile extends Component {
 CreateProfile.proptypes = {
   profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
-  createProfile: PropTypes.func.isRequired
+  createProfile: PropTypes.func.isRequired,
+  validateUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -365,5 +371,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { createProfile }
+  { createProfile, validateUser }
 )(withRouter(CreateProfile));

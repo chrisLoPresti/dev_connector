@@ -7,9 +7,11 @@ import PostItem from "../posts/PostItem";
 import { Link } from "react-router-dom";
 import CommentForm from "./CommentForm";
 import CommentFeed from "./CommentFeed";
+import { validateUser } from "../../actions/authActions";
 
 class Post extends Component {
   componentDidMount() {
+    this.props.validateUser();
     this.props.getPost(this.props.match.params.id);
   }
   render() {
@@ -45,7 +47,8 @@ class Post extends Component {
 
 Post.propTypes = {
   getPost: PropTypes.func.isRequired,
-  post: PropTypes.object.isRequired
+  post: PropTypes.object.isRequired,
+  validateUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -54,5 +57,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getPost }
+  { getPost, validateUser }
 )(Post);

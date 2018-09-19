@@ -10,24 +10,28 @@ import {
   GET_POST,
   GET_POSTS
 } from "../actions/types";
+import { clearCurrentProfile } from "./profileActions";
 
 //validaet user
 export const validateUser = () => dispatch => {
-  axios
-    .get("/api/users/validate")
-    .then(res => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: {}
-      });
-    })
-    .catch(err => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      });
-      dispatch(logoutUser({}));
-    });
+  if (localStorage.jwtToken) {
+    //decode the token and get user info and expiration
+    const decoded = jwt_decode(localStorage.jwtToken);
+    if (!axios.defaults.headers.common["Authorization"]) {
+      //set the auth token header auth
+      setAuthToken(localStorage.jwtToken);
+      //now set user and isAuthenticated
+      dispatch(setCurrentUser(decoded));
+    }
+
+    //check for expired tokens
+    const currentTime = Date.now() / 1000;
+
+    if (decoded.exp < currentTime) {
+      dispatch(logoutUser());
+      dispatch(clearCurrentProfile());
+    }
+  }
 };
 
 // register user

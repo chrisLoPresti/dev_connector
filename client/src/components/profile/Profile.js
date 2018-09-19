@@ -7,10 +7,12 @@ import ProfileAbout from "./ProfileAbout";
 import ProfileCreds from "./ProfileCreds";
 import ProfileGithub from "./ProfileGithub";
 import Spinner from "../common/Spinner";
+import { validateUser } from "../../actions/authActions";
 import { getProfileByHandle } from "../../actions/profileActions";
 
 class Profile extends Component {
   componentDidMount() {
+    this.props.validateUser();
     //if there is a handle in the query string use it
     if (this.props.match.params.handle) {
       this.props.getProfileByHandle(this.props.match.params.handle);
@@ -63,14 +65,16 @@ class Profile extends Component {
 
 Profile.propTypes = {
   getProfileByHandle: PropTypes.func.isRequired,
+  validateUser: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile
+  profile: state.profile,
+  validateUser: PropTypes.func.isRequired
 });
 
 export default connect(
   mapStateToProps,
-  { getProfileByHandle }
+  { getProfileByHandle, validateUser }
 )(Profile);

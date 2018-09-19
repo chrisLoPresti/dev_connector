@@ -11,14 +11,7 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Dashboard from "./components/dashboard/Dashboard";
 import "react-notifications/lib/notifications.css";
-import jwt_decode from "jwt-decode";
-import setAuthToken from "./utils/setAuthToken";
-import {
-  setCurrentUser,
-  logoutUser,
-  validateUser
-} from "./actions/authActions";
-import { clearCurrentProfile } from "./actions/profileActions";
+import { validateUser } from "./actions/authActions";
 import { NotificationContainer } from "react-notifications";
 import "./App.css";
 import PrivateRoute from "./components/common/PrivateRoute";
@@ -32,30 +25,10 @@ import Posts from "./components/posts/Posts";
 import Post from "./components/post/Post";
 import NotFound from "./components/not-found/NotFound";
 
-//check for tokens
-if (localStorage.jwtToken) {
-  //set the auth token header auth
-  setAuthToken(localStorage.jwtToken);
-  //decode the token and get user info and expiration
-  const decoded = jwt_decode(localStorage.jwtToken);
-  //now set user and isAuthenticated
-  store.dispatch(setCurrentUser(decoded));
-  //check for expired tokens
-  const currentTime = Date.now() / 1000;
-  console.log(decoded.exp);
-  console.log(currentTime);
-
-  if (decoded.exp < currentTime) {
-    store.dispatch(logoutUser());
-    store.dispatch(clearCurrentProfile());
-  }
-  //redunt perhaps, makes a simple get call to the api.
-  //if we get a message back it means we are authenticated
-  //if we get unauthorized we log the user out
-  store.dispatch(validateUser());
-}
-
 class App extends Component {
+  componentDidMount() {
+    validateUser();
+  }
   render() {
     return (
       <Provider store={store}>

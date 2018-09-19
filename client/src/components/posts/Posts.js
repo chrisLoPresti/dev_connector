@@ -4,10 +4,12 @@ import { connect } from "react-redux";
 import PostForm from "./PostForm";
 import Spinner from "../common/Spinner";
 import { getPosts } from "../../actions/postActions";
+import { validateUser } from "../../actions/authActions";
 import PostFeed from "./PostFeed";
 
 class Post extends Component {
   componentDidMount() {
+    this.props.validateUser();
     this.props.getPosts();
   }
   render() {
@@ -35,7 +37,8 @@ class Post extends Component {
 
 Post.propTypes = {
   post: PropTypes.object.isRequired,
-  getPosts: PropTypes.func.isRequired
+  getPosts: PropTypes.func.isRequired,
+  validateUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -44,5 +47,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getPosts }
+  { getPosts, validateUser }
 )(Post);

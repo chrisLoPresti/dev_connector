@@ -5,7 +5,7 @@ import TextAreaFieldGroup from "../common/TextAreaFieldGroup";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { addExperience } from "../../actions/profileActions";
-import { logoutUser } from "../../actions/authActions";
+import { logoutUser, validateUser } from "../../actions/authActions";
 
 class AddExperience extends Component {
   constructor() {
@@ -21,6 +21,10 @@ class AddExperience extends Component {
       errors: {},
       disabled: false
     };
+  }
+
+  componentDidMount() {
+    this.props.validateUser();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -208,6 +212,7 @@ class AddExperience extends Component {
 AddExperience.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   addExperience: PropTypes.func.isRequired,
+  validateUser: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -219,5 +224,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addExperience, logoutUser }
+  { addExperience, logoutUser, validateUser }
 )(withRouter(AddExperience));
